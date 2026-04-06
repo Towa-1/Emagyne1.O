@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+  body {
+    @apply bg-slate-950 text-slate-200 min-h-screen;
+    background-image: radial-gradient(circle at 50% 50%, rgba(234, 179, 8, 0.1) 0%, rgba(2, 6, 23, 1) 100%);
+  }
+}
+
+@layer components {
+  .gold-gradient-text {
+    @apply bg-gradient-to-b from-yellow-200 via-yellow-500 to-yellow-700 bg-clip-text text-transparent font-black tracking-tighter;
+  }
+
+  .glass-panel {
+    @apply bg-slate-900/80 backdrop-blur-2xl border border-yellow-500/20 shadow-2xl shadow-yellow-500/5;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    @apply bg-slate-950/50 rounded-full;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-yellow-500/20 rounded-full hover:bg-yellow-500/40 transition-colors;
+  }
+}
