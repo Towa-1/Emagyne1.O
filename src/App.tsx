@@ -202,9 +202,13 @@ export default function App() {
       } else {
         alert("No questions could be parsed. Please check your input format.");
       }
-    } catch (e) {
+    } catch (e: any) {
       console.error(e);
-      alert("An error occurred while parsing questions.");
+      if (e.message === 'MISSING_API_KEY') {
+        alert("Configuration Error: GEMINI_API_KEY is missing. If you are on Vercel, please add it to your Environment Variables in the project settings.");
+      } else {
+        alert("An error occurred while parsing questions. Please try again.");
+      }
     } finally {
       setIsParsing(false);
     }

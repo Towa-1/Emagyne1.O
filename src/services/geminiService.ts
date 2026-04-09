@@ -1,9 +1,23 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { Question } from "../types";
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY || "" });
+const getApiKey = () => {
+  const key = process.env.GEMINI_API_KEY;
+  if (!key || key === "MY_GEMINI_API_KEY" || key.trim() === "") {
+    throw new Error("MISSING_API_KEY");
+  }
+  return key;
+};
 
 export async function parseQuestions(rawText: string): Promise<Question[]> {
+  let apiKey;
+  try {
+    apiKey = getApiKey();
+  } catch (e) {
+    throw e;
+  }
+
+  const ai = new GoogleGenAI({ apiKey });
   const response = await ai.models.generateContent({
     model: "gemini-3-flash-preview",
     contents: `Parse the following text into a structured JSON array of exam questions.
